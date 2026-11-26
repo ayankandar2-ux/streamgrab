@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 380" width="1000" height="380" role="img" aria-label="streamgrab architecture diagram">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#5eead4"/>
+    </marker>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0b1020"/>
+      <stop offset="1" stop-color="#0e1428"/>
+    </linearGradient>
+  </defs>
+  <rect width="1000" height="380" fill="url(#bg)"/>
+
+  <!-- lane labels -->
+  <text x="40" y="46" fill="#64748b" font-family="ui-monospace,Menlo,Consolas,monospace" font-size="13">INPUT</text>
+  <text x="250" y="46" fill="#64748b" font-family="ui-monospace,Menlo,Consolas,monospace" font-size="13">RESOLVE</text>
+  <text x="470" y="46" fill="#64748b" font-family="ui-monospace,Menlo,Consolas,monospace" font-size="13">SELECT</text>
+  <text x="660" y="46" fill="#64748b" font-family="ui-monospace,Menlo,Consolas,monospace" font-size="13">TRANSFER</text>
+  <text x="880" y="46" fill="#64748b" font-family="ui-monospace,Menlo,Consolas,monospace" font-size="13">MUX</text>
+
+  <!-- boxes -->
+  <g font-family="ui-monospace,Menlo,Consolas,monospace" font-size="14">
+    <rect x="40" y="160" width="120" height="60" rx="10" fill="#111a33" stroke="#334155"/>
+    <text x="100" y="195" fill="#e2e8f0" text-anchor="middle">URL</text>
+
+    <rect x="210" y="130" width="150" height="120" rx="10" fill="#111a33" stroke="#5eead4"/>
+    <text x="285" y="165" fill="#5eead4" text-anchor="middle">Extractor</text>
+    <text x="285" y="188" fill="#94a3b8" text-anchor="middle" font-size="11">hls · dash · direct</text>
+    <text x="285" y="205" fill="#94a3b8" text-anchor="middle" font-size="11">generic · yt-dlp</text>
+
+    <rect x="410" y="160" width="120" height="60" rx="10" fill="#111a33" stroke="#334155"/>
+    <text x="470" y="188" fill="#e2e8f0" text-anchor="middle">MediaInfo</text>
+    <text x="470" y="205" fill="#94a3b8" text-anchor="middle" font-size="11">formats[]</text>
+
+    <rect x="580" y="160" width="120" height="60" rx="10" fill="#111a33" stroke="#334155"/>
+    <text x="640" y="188" fill="#e2e8f0" text-anchor="middle">Selector</text>
+    <text x="640" y="205" fill="#94a3b8" text-anchor="middle" font-size="11">best / 720p</text>
+
+    <rect x="750" y="105" width="140" height="170" rx="10" fill="#111a33" stroke="#818cf8"/>
+    <text x="820" y="140" fill="#a5b4fc" text-anchor="middle">Transfer</text>
+    <text x="820" y="163" fill="#94a3b8" text-anchor="middle" font-size="11">http · segmented</text>
+    <text x="820" y="180" fill="#94a3b8" text-anchor="middle" font-size="11">hls · segments</text>
+    <text x="820" y="197" fill="#94a3b8" text-anchor="middle" font-size="11">dash · reps</text>
+    <text x="820" y="214" fill="#94a3b8" text-anchor="middle" font-size="11">resume state</text>
+
+    <rect x="930" y="160" width="60" height="60" rx="10" fill="#111a33" stroke="#334155"/>
+    <text x="960" y="188" fill="#e2e8f0" text-anchor="middle">Mux</text>
+    <text x="960" y="205" fill="#94a3b8" text-anchor="middle" font-size="11">ffmpeg</text>
+  </g>
+
+  <!-- arrows -->
+  <g stroke="#5eead4" stroke-width="2" fill="none" marker-end="url(#arrow)">
+    <line x1="160" y1="190" x2="205" y2="190"/>
+    <line x1="360" y1="190" x2="405" y2="190"/>
+    <line x1="530" y1="190" x2="575" y2="190"/>
+    <line x1="700" y1="190" x2="745" y2="190"/>
+    <line x1="890" y1="190" x2="925" y2="190"/>
+  </g>
+
+  <text x="500" y="340" fill="#64748b" font-family="ui-monospace,Menlo,Consolas,monospace" font-size="12" text-anchor="middle">URL → Extractor → MediaInfo → Selector → Transfer → Muxer → file</text>
+</svg>

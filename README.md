@@ -1,5 +1,13 @@
 # streamgrab
 
+[![CI](https://github.com/ayankandar2-ux/streamgrab/actions/workflows/ci.yml/badge.svg)](https://github.com/ayankandar2-ux/streamgrab/actions/workflows/ci.yml)
+[![Python](https://img.shields.io/badge/python-3.9%20%7C%203.10%20%7C%203.11%20%7C%203.12%20%7C%203.13-blue)](https://github.com/ayankandar2-ux/streamgrab)
+[![Platform](https://img.shields.io/badge/platform-linux%20%7C%20macos%20%7C%20windows-lightgrey)](https://github.com/ayankandar2-ux/streamgrab)
+[![License: MIT](https://img.shields.io/badge/license-MIT-green)](LICENSE)
+[![Dependencies](https://img.shields.io/badge/runtime%20deps-0-brightgreen)](pyproject.toml)
+
+![streamgrab](docs/assets/banner.svg)
+
 **A modular, dependency-light media download engine for Python.**
 
 `streamgrab` downloads video and audio from direct links, **HLS** (`.m3u8`) and
@@ -81,6 +89,14 @@ for fmt in info.formats:
 paths = engine.download(info, selector="best")
 print("saved:", paths)
 ```
+
+## Demo
+
+![streamgrab CLI demo](docs/assets/demo.svg)
+
+## Architecture at a glance
+
+![streamgrab architecture](docs/assets/architecture.svg)
 
 ## How it works
 
