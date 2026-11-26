@@ -200,6 +200,13 @@ implementation, plus integration tests that spin up a local HTTP server and
 exercise the segmented downloader and HLS pipeline (plain and AES-128). CI runs
 the full matrix on Ubuntu, macOS and Windows for Python 3.9–3.13.
 
+## Case study
+
+[`docs/SNAPTUBE-NOTES.md`](docs/SNAPTUBE-NOTES.md) is an architectural analysis
+of a shipping Android downloader (SnapTube 7.70.1) and a layer-by-layer mapping
+to streamgrab. It is static-analysis commentary only — no proprietary code or
+assets are reproduced.
+
 ## Legal and responsible use
 
 `streamgrab` is a general-purpose transfer tool. It does **not** include DRM
