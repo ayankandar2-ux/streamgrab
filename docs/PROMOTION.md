@@ -15,7 +15,8 @@ as spam and gets removed.
 - **Who it's for:** developers who want a hackable reference implementation, not
   a giant all-in-one app.
 - **Differentiator:** zero runtime dependencies, pure-Python AES fallback,
-  clean layer boundaries (extractor / transfer / muxer), fully tested on three OSes.
+  clean layer boundaries (extractor / transfer / muxer), fully tested on three OSes,
+  and runs natively on Android through Termux with no root or proot.
 
 ## GitHub repo description (already set)
 
@@ -45,6 +46,21 @@ Topics: `downloader` `hls` `dash` `m3u8` `mpd` `ffmpeg` `python` `video`
 ## Reddit
 
 Post only where it's on-topic and the rules allow project sharing.
+
+**r/termux** — title: *streamgrab: an HLS/DASH downloader that runs natively in Termux (no root, no proot)*
+
+> I wrote a small download engine in pure Python — segmented HTTP with resume,
+> HLS (m3u8 + AES-128) and DASH (MPD) — and it runs unmodified in Termux on
+> arm64. No proot, no desktop, no root.
+>
+> Notes from testing on-device: install `python-cryptography` from `pkg` rather
+> than pip (avoids a Rust build), `termux-setup-storage` then `-o
+> ~/storage/downloads/` to land files in the normal Downloads folder, and
+> `termux-wake-lock` for long jobs. `-j 4` is a better default on a phone than
+> 16 — thermal throttling is real.
+>
+> There's a `scripts/termux-install.sh` that does the whole setup.
+> MIT, zero runtime deps: https://github.com/ayankandar2-ux/streamgrab
 
 **r/Python** — title: *streamgrab: a small HLS/DASH download engine with zero runtime deps*
 

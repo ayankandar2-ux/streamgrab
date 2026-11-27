@@ -2,7 +2,7 @@
 
 [![CI](https://github.com/ayankandar2-ux/streamgrab/actions/workflows/ci.yml/badge.svg)](https://github.com/ayankandar2-ux/streamgrab/actions/workflows/ci.yml)
 [![Python](https://img.shields.io/badge/python-3.9%20%7C%203.10%20%7C%203.11%20%7C%203.12%20%7C%203.13-blue)](https://github.com/ayankandar2-ux/streamgrab)
-[![Platform](https://img.shields.io/badge/platform-linux%20%7C%20macos%20%7C%20windows-lightgrey)](https://github.com/ayankandar2-ux/streamgrab)
+[![Platform](https://img.shields.io/badge/platform-linux%20%7C%20macos%20%7C%20windows%20%7C%20android-lightgrey)](https://github.com/ayankandar2-ux/streamgrab)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 [![Dependencies](https://img.shields.io/badge/runtime%20deps-0-brightgreen)](pyproject.toml)
 
@@ -38,7 +38,7 @@ pip install "streamgrab[crypto]"
 From source:
 
 ```bash
-git clone https://github.com/yourname/streamgrab
+git clone https://github.com/ayankandar2-ux/streamgrab
 cd streamgrab
 pip install -e ".[dev,crypto]"
 ```
@@ -50,8 +50,95 @@ FFmpeg is optional but recommended for muxing separate video/audio streams:
 brew install ffmpeg
 # Debian/Ubuntu
 sudo apt install ffmpeg
+# Android/Termux
+pkg install ffmpeg
 # Windows: https://ffmpeg.org/download.html
 ```
+
+## Android (Termux)
+
+`streamgrab` runs natively in [Termux](https://termux.dev) on arm64/arm devices —
+no root, no proot, no desktop. Termux ships a real Python 3 and a full FFmpeg build.
+
+### One-shot install
+
+```bash
+pkg update && pkg upgrade
+pkg install -y python ffmpeg git
+git clone https://github.com/ayankandar2-ux/streamgrab
+cd streamgrab
+pip install -e "."
+```
+
+Or let the helper do it (updates packages, installs a prebuilt `cryptography`,
+clones or pulls, installs, and sets up storage):
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/ayankandar2-ux/streamgrab/main/scripts/termux-install.sh -o termux-install.sh
+bash termux-install.sh
+```
+
+### Use the prebuilt AES backend
+
+The pure-Python AES fallback works everywhere but is slow on a phone CPU.
+Termux ships `cryptography` compiled for Android, so install the package instead
+of building it with pip:
+
+```bash
+pkg install python-cryptography
+python -c "import cryptography; print(cryptography.__version__)"
+```
+
+streamgrab detects it automatically — no configuration needed.
+
+### Write to shared storage
+
+Android 11+ scopes app storage, so grant access once and download into the
+phone's normal Downloads folder:
+
+```bash
+termux-setup-storage                 # approve the Android permission prompt
+streamgrab -o ~/storage/downloads/ "https://cdn.example.com/master.m3u8"
+```
+
+Files land in `~/storage/downloads` (the same folder the Files app shows).
+
+### Keep long downloads alive
+
+Android suspends background apps aggressively. For anything large:
+
+```bash
+pkg install termux-api
+termux-wake-lock                     # hold a CPU wake lock
+streamgrab -j 4 --retries 5 -o ~/storage/downloads/ "$URL"
+termux-wake-unlock
+```
+
+Also set Termux to **Unrestricted** battery usage (Android Settings → Apps →
+Termux → Battery), and consider `pkg install tmux` so a job survives the
+terminal being backgrounded or the session being detached.
+
+### Mobile tips
+
+| Tip | Why |
+|---|---|
+| `-j 4` rather than `-j 16` | fewer sockets; less battery drain and thermal throttling |
+| `--retries 5` | mobile networks drop connections more often than Wi-Fi |
+| Download over Wi-Fi | segmented transfer will saturate a metered link |
+| `--audio --mp3` | on-device conversion works once `pkg install ffmpeg` is done |
+| Watch free space | Termux home lives on shared internal storage |
+
+### Termux troubleshooting
+
+| Symptom | Fix |
+|---|---|
+| `pkg: command not found` | You are not in Termux — open the Termux app itself. |
+| `Permission denied` under `~/storage` | Run `termux-setup-storage` and approve the prompt. |
+| `No space left on device` | `pkg clean`, delete old downloads, or target `~/storage/shared`. |
+| `cryptography` build fails | `pkg install python-cryptography` instead of pip. |
+| Download stalls with the screen off | `termux-wake-lock` + unrestricted battery. |
+| `ffmpeg: not found` | `pkg install ffmpeg`; without it split A/V stays as separate files. |
+| `pip` refuses to install | `pip install --user -e .` or `pkg install python-pip`. |
 
 ## Quick start
 

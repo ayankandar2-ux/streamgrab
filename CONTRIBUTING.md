@@ -5,7 +5,7 @@ Thanks for helping improve streamgrab.
 ## Development setup
 
 ```bash
-git clone https://github.com/yourname/streamgrab
+git clone https://github.com/ayankandar2-ux/streamgrab
 cd streamgrab
 python -m venv .venv
 . .venv/bin/activate          # Windows: .venv\Scripts\activate
@@ -17,6 +17,13 @@ If your system blocks global installs (PEP 668), use `uv`:
 ```bash
 uv venv .venv
 uv pip install --python .venv/bin/python -e ".[dev,crypto]"
+```
+
+On Android, use Termux instead (no venv needed, no root):
+
+```bash
+pkg install python ffmpeg git python-cryptography
+bash scripts/termux-install.sh
 ```
 
 ## Running tests

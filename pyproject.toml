@@ -32,8 +32,10 @@ dev = ["pytest>=7", "ruff>=0.4"]
 streamgrab = "streamgrab.cli:main"
 
 [project.urls]
-Homepage = "https://github.com/yourname/streamgrab"
-Issues = "https://github.com/yourname/streamgrab/issues"
+Homepage = "https://github.com/ayankandar2-ux/streamgrab"
+Documentation = "https://github.com/ayankandar2-ux/streamgrab/blob/main/docs/ARCHITECTURE.md"
+Issues = "https://github.com/ayankandar2-ux/streamgrab/issues"
+Changelog = "https://github.com/ayankandar2-ux/streamgrab/releases"
 
 [tool.setuptools.packages.find]
 include = ["streamgrab*"]
