@@ -289,6 +289,7 @@ streamgrab/
 │   └── extractor/         # extractor plugins
 ├── tests/                 # unit + local-server integration tests
 ├── examples/plugins/      # sample extractor
+├── scripts/               # termux-install.sh, publish.sh
 └── docs/ARCHITECTURE.md   # deeper design notes
 ```
 
@@ -300,8 +301,11 @@ python -m pytest -q
 
 The suite includes unit tests for playlist/manifest parsing and the AES
 implementation, plus integration tests that spin up a local HTTP server and
-exercise the segmented downloader and HLS pipeline (plain and AES-128). CI runs
-the full matrix on Ubuntu, macOS and Windows for Python 3.9–3.13.
+exercise the segmented downloader and HLS pipeline (plain and AES-128).
+
+CI runs 18 jobs: Ubuntu, macOS and Windows across Python 3.9–3.13, plus a
+**linux-arm64** job (same architecture as Android/Termux devices), ruff, and a
+wheel/sdist build.
 
 ## Case study
 
