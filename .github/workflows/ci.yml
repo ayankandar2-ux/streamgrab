@@ -26,10 +26,31 @@ jobs:
           - os: ubuntu-22.04
             python: "3.9"
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
         with:
           python-version: ${{ matrix.python }}
+          cache: pip
+      - name: Install
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -e ".[dev,crypto]"
+      - name: Run tests
+        run: python -m pytest -q
+      - name: CLI smoke test
+        run: |
+          python -m streamgrab --version
+          python -m streamgrab --help
+
+  # Same architecture as Android/Termux devices (aarch64 Linux).
+  test-arm64:
+    name: test linux-arm64 / py3.12
+    runs-on: ubuntu-24.04-arm
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
           cache: pip
       - name: Install
         run: |
@@ -46,8 +67,8 @@ jobs:
     name: lint
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
         with:
           python-version: "3.12"
           cache: pip
@@ -62,15 +83,15 @@ jobs:
     name: build sdist + wheel
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
         with:
           python-version: "3.12"
       - name: Install build
         run: python -m pip install --upgrade build
       - name: Build
         run: python -m build
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
           name: dist
           path: dist/*
